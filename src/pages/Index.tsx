@@ -1,6 +1,6 @@
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { KPICard } from "@/components/admin/KPICard";
-import { FleetStatusWidget } from "@/components/admin/FleetStatusWidget";
+import { FleetMapWidget } from "@/components/admin/FleetMapWidget";
 import { RecentActivityWidget } from "@/components/admin/RecentActivityWidget";
 import { AlertsWidget } from "@/components/admin/AlertsWidget";
 import { UserOverviewWidget } from "@/components/admin/UserOverviewWidget";
@@ -14,8 +14,8 @@ const Index = () => {
         subtitle="Monitor and control your fleet, users, system health, and compliance from one place"
       />
       
-      <main className="p-6 space-y-6">
-        {/* KPI Cards */}
+      <main className="p-6 space-y-8">
+        {/* Primary KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <KPICard
             title="Active Vehicles"
@@ -51,7 +51,7 @@ const Index = () => {
           />
         </div>
 
-        {/* Secondary KPIs */}
+        {/* Secondary KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <KPICard
             title="Open Incidents"
@@ -79,42 +79,42 @@ const Index = () => {
           />
         </div>
 
-        {/* Widgets Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          <div className="xl:col-span-1">
-            <FleetStatusWidget />
+        {/* Fleet Map Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <FleetMapWidget />
           </div>
-          <div className="xl:col-span-1">
+          <div>
             <UserOverviewWidget />
-          </div>
-          <div className="xl:col-span-1">
-            <RecentActivityWidget />
           </div>
         </div>
 
-        {/* Alerts Section */}
+        {/* Activity and Alerts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <RecentActivityWidget />
           <AlertsWidget />
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Quick Actions</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <button className="p-4 bg-gradient-card border rounded-lg hover:shadow-md transition-shadow text-left">
-                <div className="text-sm font-medium">View Fleet</div>
-                <div className="text-xs text-muted-foreground">Monitor vehicles</div>
-              </button>
-              <button className="p-4 bg-gradient-card border rounded-lg hover:shadow-md transition-shadow text-left">
-                <div className="text-sm font-medium">Manage Users</div>
-                <div className="text-xs text-muted-foreground">User & roles</div>
-              </button>
-              <button className="p-4 bg-gradient-card border rounded-lg hover:shadow-md transition-shadow text-left">
-                <div className="text-sm font-medium">Audit Log</div>
-                <div className="text-xs text-muted-foreground">View activity</div>
-              </button>
-              <button className="p-4 bg-gradient-card border rounded-lg hover:shadow-md transition-shadow text-left">
-                <div className="text-sm font-medium">Create Incident</div>
-                <div className="text-xs text-muted-foreground">Report issue</div>
-              </button>
-            </div>
+        </div>
+
+        {/* Quick Actions Section */}
+        <div className="bg-gradient-card rounded-lg border p-6">
+          <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+              <div className="text-sm font-medium group-hover:text-primary transition-colors">View Fleet</div>
+              <div className="text-xs text-muted-foreground">Monitor vehicles</div>
+            </button>
+            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+              <div className="text-sm font-medium group-hover:text-primary transition-colors">Manage Users</div>
+              <div className="text-xs text-muted-foreground">User & roles</div>
+            </button>
+            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+              <div className="text-sm font-medium group-hover:text-primary transition-colors">Audit Log</div>
+              <div className="text-xs text-muted-foreground">View activity</div>
+            </button>
+            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+              <div className="text-sm font-medium group-hover:text-primary transition-colors">Create Incident</div>
+              <div className="text-xs text-muted-foreground">Report issue</div>
+            </button>
           </div>
         </div>
       </main>

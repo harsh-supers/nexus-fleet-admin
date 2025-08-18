@@ -34,18 +34,25 @@ export function KPICard({
   };
 
   return (
-    <Card className={cn("bg-gradient-card hover:shadow-md transition-shadow", className)}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
-          {title}
-        </CardTitle>
-        <Icon className="h-4 w-4 text-muted-foreground" />
+    <Card className={cn(
+      "bg-gradient-card hover:shadow-lg transition-all duration-300 border-0 shadow-md group",
+      className
+    )}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-6 pt-6">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+            <Icon className="h-5 w-5 text-primary" />
+          </div>
+          <CardTitle className="text-sm font-medium text-muted-foreground">
+            {title}
+          </CardTitle>
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold text-foreground">{value}</div>
-        <div className="flex items-center gap-2 mt-1">
+      <CardContent className="px-6 pb-6">
+        <div className="text-3xl font-bold text-foreground mb-2">{value}</div>
+        <div className="flex items-center gap-2">
           {change && (
-            <Badge variant="secondary" className={cn("text-xs", getChangeColor())}>
+            <Badge variant="secondary" className={cn("text-xs font-medium", getChangeColor())}>
               {change}
             </Badge>
           )}
