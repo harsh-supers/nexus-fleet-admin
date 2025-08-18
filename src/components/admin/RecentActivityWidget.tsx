@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Clock, User, LogIn, UserPlus, Truck, AlertTriangle } from "lucide-react";
 
 const recentActivities = [
@@ -63,11 +64,14 @@ const getActivityColor = (type: string) => {
 export function RecentActivityWidget() {
   return (
     <Card className="bg-gradient-card">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
           <Clock className="w-5 h-5" />
           Recent Activity
         </CardTitle>
+        <Button variant="outline" size="sm" onClick={() => window.location.href = '/activity'}>
+          View All
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

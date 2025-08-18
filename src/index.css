@@ -36,13 +36,19 @@ All colors MUST be HSL.
     --input: 220 13% 91%;
     --ring: 217 91% 16%;
 
-    /* Status colors */
-    --success: 142 76% 36%;
+    /* Status colors - Standardized UX conventions */
+    --success: 142 76% 36%;        /* Green - Active/Online/Delivered */
     --success-foreground: 0 0% 98%;
-    --warning: 43 96% 56%;
+    --warning: 43 96% 56%;         /* Yellow/Amber - Pending */
     --warning-foreground: 213 31% 12%;
-    --info: 217 91% 60%;
+    --info: 217 91% 60%;           /* Blue - Maintenance/Info */
     --info-foreground: 0 0% 98%;
+    --inactive: 220 9% 46%;        /* Grey - Inactive/Disabled */
+    --inactive-foreground: 0 0% 98%;
+    --alert: 0 84% 60%;            /* Red/Orange - Alert/Error */
+    --alert-foreground: 0 0% 98%;
+    --completed: 175 60% 42%;      /* Teal - Completed/Delivered */
+    --completed-foreground: 0 0% 98%;
 
     /* Admin dashboard colors */
     --admin-primary: 217 91% 16%;
@@ -109,13 +115,19 @@ All colors MUST be HSL.
     --input: 213 31% 15%;
     --ring: 217 91% 60%;
 
-    /* Status colors dark */
-    --success: 142 76% 44%;
+    /* Status colors dark - Standardized UX conventions */
+    --success: 142 76% 44%;        /* Green - Active/Online/Delivered */
     --success-foreground: 0 0% 98%;
-    --warning: 43 96% 64%;
+    --warning: 43 96% 64%;         /* Yellow/Amber - Pending */
     --warning-foreground: 213 31% 6%;
-    --info: 217 91% 70%;
+    --info: 217 91% 70%;           /* Blue - Maintenance/Info */
     --info-foreground: 213 31% 6%;
+    --inactive: 220 9% 65%;        /* Grey - Inactive/Disabled */
+    --inactive-foreground: 213 31% 6%;
+    --alert: 0 84% 60%;            /* Red/Orange - Alert/Error */
+    --alert-foreground: 0 0% 98%;
+    --completed: 175 60% 50%;      /* Teal - Completed/Delivered */
+    --completed-foreground: 213 31% 6%;
 
     /* Admin dashboard colors dark */
     --admin-primary: 217 91% 60%;

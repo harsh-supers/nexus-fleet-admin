@@ -15,6 +15,19 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        // Standardized status variants following UX conventions
+        active:
+          "border-transparent bg-success text-success-foreground hover:bg-success/80",
+        inactive:
+          "border-transparent bg-inactive text-inactive-foreground hover:bg-inactive/80",
+        pending:
+          "border-transparent bg-warning text-warning-foreground hover:bg-warning/80",
+        maintenance:
+          "border-transparent bg-info text-info-foreground hover:bg-info/80",
+        alert:
+          "border-transparent bg-alert text-alert-foreground hover:bg-alert/80",
+        completed:
+          "border-transparent bg-completed text-completed-foreground hover:bg-completed/80",
       },
     },
     defaultVariants: {

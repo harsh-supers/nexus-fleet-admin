@@ -99,19 +99,31 @@ const Index = () => {
         <div className="bg-gradient-card rounded-lg border p-6">
           <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+            <button 
+              onClick={() => window.location.href = '/master-data'}
+              className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group"
+            >
               <div className="text-sm font-medium group-hover:text-primary transition-colors">View Fleet</div>
               <div className="text-xs text-muted-foreground">Monitor vehicles</div>
             </button>
-            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+            <button 
+              onClick={() => window.location.href = '/users'}
+              className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group"
+            >
               <div className="text-sm font-medium group-hover:text-primary transition-colors">Manage Users</div>
               <div className="text-xs text-muted-foreground">User & roles</div>
             </button>
-            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+            <button 
+              onClick={() => window.location.href = '/activity'}
+              className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group"
+            >
               <div className="text-sm font-medium group-hover:text-primary transition-colors">Audit Log</div>
               <div className="text-xs text-muted-foreground">View activity</div>
             </button>
-            <button className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group">
+            <button 
+              onClick={() => window.location.href = '/incidents'}
+              className="p-4 bg-background border rounded-lg hover:shadow-md transition-all duration-200 text-left group"
+            >
               <div className="text-sm font-medium group-hover:text-primary transition-colors">Create Incident</div>
               <div className="text-xs text-muted-foreground">Report issue</div>
             </button>

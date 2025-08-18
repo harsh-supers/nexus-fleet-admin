@@ -64,6 +64,18 @@ export default {
 					DEFAULT: 'hsl(var(--info))',
 					foreground: 'hsl(var(--info-foreground))'
 				},
+				inactive: {
+					DEFAULT: 'hsl(var(--inactive))',
+					foreground: 'hsl(var(--inactive-foreground))'
+				},
+				alert: {
+					DEFAULT: 'hsl(var(--alert))',
+					foreground: 'hsl(var(--alert-foreground))'
+				},
+				completed: {
+					DEFAULT: 'hsl(var(--completed))',
+					foreground: 'hsl(var(--completed-foreground))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

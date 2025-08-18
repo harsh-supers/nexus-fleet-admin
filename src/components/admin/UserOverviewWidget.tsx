@@ -23,8 +23,8 @@ export function UserOverviewWidget() {
           <Users className="w-5 h-5" />
           User Overview
         </CardTitle>
-        <Button variant="outline" size="sm">
-          Manage Users
+        <Button variant="outline" size="sm" onClick={() => window.location.href = '/users'}>
+          View All Users
         </Button>
       </CardHeader>
       <CardContent className="space-y-6">

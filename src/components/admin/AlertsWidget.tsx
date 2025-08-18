@@ -77,7 +77,7 @@ export function AlertsWidget() {
           <AlertTriangle className="w-5 h-5" />
           Active Alerts
         </CardTitle>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={() => window.location.href = '/incidents'}>
           View All
         </Button>
       </CardHeader>
