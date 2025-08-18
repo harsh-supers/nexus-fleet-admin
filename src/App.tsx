@@ -8,6 +8,11 @@ import { AppSidebar } from "@/components/admin/AppSidebar";
 import Index from "./pages/Index";
 import Users from "./pages/Users";
 import MasterData from "./pages/MasterData";
+import Reports from "./pages/Reports";
+import ActivityLog from "./pages/ActivityLog";
+import Incidents from "./pages/Incidents";
+import Settings from "./pages/Settings";
+import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +31,11 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/master-data" element={<MasterData />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/activity" element={<ActivityLog />} />
+                <Route path="/incidents" element={<Incidents />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/integrations" element={<Integrations />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
