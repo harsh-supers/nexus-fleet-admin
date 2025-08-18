@@ -4,9 +4,21 @@ import { FleetMapWidget } from "@/components/admin/FleetMapWidget";
 import { RecentActivityWidget } from "@/components/admin/RecentActivityWidget";
 import { AlertsWidget } from "@/components/admin/AlertsWidget";
 import { UserOverviewWidget } from "@/components/admin/UserOverviewWidget";
-import { Truck, Route, Package, Clock, AlertTriangle, CheckCircle, Users } from "lucide-react";
+import { LiveIndicator } from "@/components/common/LiveIndicator";
+import { 
+  TripsCompletedChart, 
+  SLABreachesChart, 
+  VehicleUtilizationChart, 
+  TopDriversChart, 
+  IncidentDistributionChart, 
+  OrderVolumeChart 
+} from "@/components/charts/DashboardCharts";
+import { Truck, Route, Package, Clock, AlertTriangle, CheckCircle, Users, Gauge } from "lucide-react";
+import { useRealTimeUpdates } from "@/hooks/useRealTimeUpdates";
 
 const Index = () => {
+  const { lastUpdate, isRefreshing } = useRealTimeUpdates();
+
   return (
     <div className="min-h-screen">
       <DashboardHeader 
@@ -15,6 +27,10 @@ const Index = () => {
       />
       
       <main className="p-6 space-y-8">
+        {/* Live Status Indicator */}
+        <div className="flex justify-end">
+          <LiveIndicator isRefreshing={isRefreshing} lastUpdate={lastUpdate} />
+        </div>
         {/* Primary KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <KPICard
@@ -52,7 +68,15 @@ const Index = () => {
         </div>
 
         {/* Secondary KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <KPICard
+            title="Fleet Utilization"
+            value="78%"
+            change="+5%"
+            changeType="positive"
+            icon={Gauge}
+            description="vehicles in use"
+          />
           <KPICard
             title="Open Incidents"
             value={7}
@@ -86,6 +110,25 @@ const Index = () => {
           </div>
           <div>
             <UserOverviewWidget />
+          </div>
+        </div>
+
+        {/* Analytics Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TripsCompletedChart />
+          <SLABreachesChart />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <VehicleUtilizationChart />
+          <TopDriversChart />
+          <IncidentDistributionChart />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <OrderVolumeChart />
+          <div className="lg:col-span-1">
+            {/* Additional chart space */}
           </div>
         </div>
 

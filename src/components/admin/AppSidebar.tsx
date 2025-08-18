@@ -27,6 +27,16 @@ const navigationItems = [
     icon: Users,
   },
   {
+    title: "Drivers",
+    url: "/drivers",
+    icon: Users,
+  },
+  {
+    title: "Vehicles",
+    url: "/vehicles",
+    icon: Truck,
+  },
+  {
     title: "Master Data",
     url: "/master-data",
     icon: Truck,

@@ -7,6 +7,8 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/admin/AppSidebar";
 import Index from "./pages/Index";
 import Users from "./pages/Users";
+import Drivers from "./pages/Drivers";
+import Vehicles from "./pages/Vehicles";
 import MasterData from "./pages/MasterData";
 import Reports from "./pages/Reports";
 import ActivityLog from "./pages/ActivityLog";
@@ -30,6 +32,8 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/users" element={<Users />} />
+                <Route path="/drivers" element={<Drivers />} />
+                <Route path="/vehicles" element={<Vehicles />} />
                 <Route path="/master-data" element={<MasterData />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/activity" element={<ActivityLog />} />

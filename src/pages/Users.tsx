@@ -8,7 +8,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { UserPlus, Search, Filter, MoreHorizontal, Edit, Trash2, Mail } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DetailDrawer } from "@/components/modals/DetailDrawer";
+import { BulkActionsDialog } from "@/components/modals/BulkActionsDialog";
+import { UserPlus, Search, Download, Users as UsersIcon, Mail } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const mockUsers = [
   {
@@ -61,28 +65,29 @@ const mockUsers = [
 const getRoleColor = (role: string) => {
   switch (role) {
     case "Admin":
-      return "bg-primary text-primary-foreground";
+      return "alert";
     case "Operator":
-      return "bg-info text-info-foreground";
+      return "maintenance";
     case "Driver":
-      return "bg-success text-success-foreground";
+      return "active";
     case "Customer":
-      return "bg-warning text-warning-foreground";
+      return "pending";
     default:
-      return "bg-muted text-muted-foreground";
+      return "inactive";
   }
 };
 
 const getStatusColor = (status: string) => {
-  return status === "active" 
-    ? "bg-success text-success-foreground" 
-    : "bg-muted text-muted-foreground";
+  return status === "active" ? "active" : "inactive";
 };
 
 const Users = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+  const [bulkActionsOpen, setBulkActionsOpen] = useState(false);
+  const { toast } = useToast();
 
   const filteredUsers = mockUsers.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -92,6 +97,35 @@ const Users = () => {
     
     return matchesSearch && matchesRole && matchesStatus;
   });
+
+  const handleSelectAll = (checked: boolean) => {
+    setSelectedUsers(checked ? filteredUsers.map(u => u.id.toString()) : []);
+  };
+
+  const handleSelectUser = (userId: string, checked: boolean) => {
+    setSelectedUsers(prev => 
+      checked 
+        ? [...prev, userId]
+        : prev.filter(id => id !== userId)
+    );
+  };
+
+  const handleBulkAction = (action: string, params?: any) => {
+    console.log("Bulk action:", action, "on users:", selectedUsers, "with params:", params);
+    toast({
+      title: "Bulk action completed",
+      description: `${action} applied to ${selectedUsers.length} user(s)`,
+    });
+    setSelectedUsers([]);
+    setBulkActionsOpen(false);
+  };
+
+  const handleExport = () => {
+    toast({
+      title: "Export started",
+      description: "User data is being exported to CSV",
+    });
+  };
 
   return (
     <div className="min-h-screen">
@@ -173,15 +207,35 @@ const Users = () => {
                   </div>
                   <div className="flex justify-end gap-2 pt-4">
                     <Button variant="outline">Cancel</Button>
-                    <Button>Create User</Button>
+                    <Button onClick={() => {
+                      toast({
+                        title: "User added",
+                        description: "New user has been successfully created",
+                      });
+                    }}>Create User</Button>
                   </div>
                 </div>
               </DialogContent>
             </Dialog>
-            <Button variant="outline">
-              <Mail className="w-4 h-4 mr-2" />
-              Bulk Invite
+            <Button variant="outline" onClick={handleExport}>
+              <Download className="w-4 h-4 mr-2" />
+              Export
             </Button>
+            {selectedUsers.length > 0 && (
+              <>
+                <Button variant="outline" onClick={() => setBulkActionsOpen(true)}>
+                  <UsersIcon className="w-4 h-4 mr-2" />
+                  Bulk Actions ({selectedUsers.length})
+                </Button>
+                <BulkActionsDialog
+                  open={bulkActionsOpen}
+                  onOpenChange={setBulkActionsOpen}
+                  selectedItems={selectedUsers}
+                  onAction={handleBulkAction}
+                  type="users"
+                />
+              </>
+            )}
           </div>
         </div>
 
@@ -194,62 +248,68 @@ const Users = () => {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-[50px]">
+                    <Checkbox
+                      checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
+                      onCheckedChange={handleSelectAll}
+                    />
+                  </TableHead>
                   <TableHead>User</TableHead>
                   <TableHead>Role</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Assigned Vehicle</TableHead>
                   <TableHead>Last Login</TableHead>
-                  <TableHead className="w-[100px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredUsers.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
-                          <span className="text-xs font-medium text-primary-foreground">
-                            {user.name.split(' ').map(n => n[0]).join('')}
+                  <DetailDrawer
+                    key={user.id}
+                    trigger={
+                      <TableRow className="cursor-pointer hover:bg-muted/50">
+                        <TableCell onClick={(e) => e.stopPropagation()}>
+                          <Checkbox
+                            checked={selectedUsers.includes(user.id.toString())}
+                            onCheckedChange={(checked) => handleSelectUser(user.id.toString(), !!checked)}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
+                              <span className="text-xs font-medium text-primary-foreground">
+                                {user.name.split(' ').map(n => n[0]).join('')}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="font-medium">{user.name}</div>
+                              <div className="text-sm text-muted-foreground">{user.email}</div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={getRoleColor(user.role)}>
+                            {user.role}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={getStatusColor(user.status)}>
+                            {user.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <span className={user.assignedVehicle === "N/A" ? "text-muted-foreground" : ""}>
+                            {user.assignedVehicle}
                           </span>
-                        </div>
-                        <div>
-                          <div className="font-medium">{user.name}</div>
-                          <div className="text-sm text-muted-foreground">{user.email}</div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={getRoleColor(user.role)} variant="secondary">
-                        {user.role}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(user.status)} variant="secondary">
-                        {user.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <span className={user.assignedVehicle === "N/A" ? "text-muted-foreground" : ""}>
-                        {user.assignedVehicle}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {user.lastLogin}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon">
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {user.lastLogin}
+                        </TableCell>
+                      </TableRow>
+                    }
+                    title={`User: ${user.name}`}
+                    data={user}
+                    type="user"
+                  />
                 ))}
               </TableBody>
             </Table>
