@@ -273,19 +273,19 @@ const Drivers = () => {
               Export
             </Button>
             {selectedDrivers.length > 0 && (
-              <>
-                <Button variant="outline" onClick={() => setBulkActionsOpen(true)}>
-                  <Users className="w-4 h-4 mr-2" />
-                  Bulk Actions ({selectedDrivers.length})
-                </Button>
-                <BulkActionsDialog
-                  open={bulkActionsOpen}
-                  onOpenChange={setBulkActionsOpen}
-                  selectedItems={selectedDrivers}
-                  onAction={handleBulkAction}
-                  type="drivers"
-                />
-              </>
+              <BulkActionsDialog
+                open={bulkActionsOpen}
+                onOpenChange={setBulkActionsOpen}
+                selectedItems={selectedDrivers}
+                onAction={handleBulkAction}
+                type="drivers"
+                trigger={
+                  <Button variant="outline">
+                    <Users className="w-4 h-4 mr-2" />
+                    Bulk Actions ({selectedDrivers.length})
+                  </Button>
+                }
+              />
             )}
           </div>
         </div>

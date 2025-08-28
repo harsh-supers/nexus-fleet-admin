@@ -29,11 +29,7 @@ const Index = () => {
       <main className="p-6 space-y-8">
         {/* Live Status Indicator */}
         <div className="flex justify-end">
-          <LiveIndicator 
-            isRefreshing={isRefreshing} 
-            lastUpdate={lastUpdate} 
-            onRefresh={() => window.location.reload()} 
-          />
+          <LiveIndicator isRefreshing={isRefreshing} lastUpdate={lastUpdate} />
         </div>
         {/* Primary KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -131,6 +127,9 @@ const Index = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <OrderVolumeChart />
+          <div className="lg:col-span-1">
+            {/* Additional chart space */}
+          </div>
         </div>
 
         {/* Activity and Alerts Section */}
