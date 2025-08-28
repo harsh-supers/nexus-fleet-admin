@@ -286,19 +286,19 @@ const Vehicles = () => {
               Export
             </Button>
             {selectedVehicles.length > 0 && (
-              <BulkActionsDialog
-                open={bulkActionsOpen}
-                onOpenChange={setBulkActionsOpen}
-                selectedItems={selectedVehicles}
-                onAction={handleBulkAction}
-                type="vehicles"
-                trigger={
-                  <Button variant="outline">
-                    <Truck className="w-4 h-4 mr-2" />
-                    Bulk Actions ({selectedVehicles.length})
-                  </Button>
-                }
-              />
+              <>
+                <Button variant="outline" onClick={() => setBulkActionsOpen(true)}>
+                  <Truck className="w-4 h-4 mr-2" />
+                  Bulk Actions ({selectedVehicles.length})
+                </Button>
+                <BulkActionsDialog
+                  open={bulkActionsOpen}
+                  onOpenChange={setBulkActionsOpen}
+                  selectedItems={selectedVehicles}
+                  onAction={handleBulkAction}
+                  type="vehicles"
+                />
+              </>
             )}
           </div>
         </div>
